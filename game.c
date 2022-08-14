@@ -57,7 +57,7 @@ int main() {
     char line3[] = "[-][-][-]";
     char user1[8];
     char user2[8];
-    char cursors[] = { "X", "O" };
+    char cursors[] = "eXO";
     char choice[1];
     int player = 1;
     
@@ -75,9 +75,14 @@ int main() {
         printf("\nUser#%d Pick: ", player);
         scanf("%s", choice);
 
+        // switch (choice[0]) {
+        //     default:
+        //         break;
+        // }
+
         if (choice[0] == '1' ) {
             if (line1[1] == '-') {
-                line1[1] = cursors[player - 1];
+                line1[1] = cursors[player];
             } else {
                 printf("\nPick Again!");
                 player = player - 1;
@@ -86,7 +91,7 @@ int main() {
         } 
         else if (choice[0] == '2') {
             if (line1[4] == '-') {
-                line1[4] = cursors[player - 1];
+                line1[4] = cursors[player];
             } else {
                 printf("\nPick Again!");
                 player = player - 1;
@@ -95,7 +100,7 @@ int main() {
         }
         else if (choice[0] == '3') {
             if (line1[7] == '-') {
-                line1[7] = cursors[player - 1];
+                line1[7] = cursors[player];
             } else {
                 printf("\nPick Again!");
                 player = player - 1;
@@ -103,7 +108,7 @@ int main() {
         }    
         else if (choice[0] == '4') {
             if (line2[1] == '-') {
-                line2[1] = cursors[player - 1];
+                line2[1] = cursors[player];
             } else {
                 printf("\nPick Again!");
                 player = player - 1;
@@ -111,7 +116,7 @@ int main() {
         }   
         else if (choice[0] == '5') {
             if (line2[4] == '-') {
-                line2[4] = cursors[player - 1];
+                line2[4] = cursors[player];
             } else {
                 printf("\nPick Again!");
                 player = player - 1;
@@ -119,7 +124,7 @@ int main() {
         }     
         else if (choice[0] == '6') {
             if (line2[7] == '-') {
-                line2[7] = cursors[player - 1];
+                line2[7] = cursors[player];
             } else {
                 printf("\nPick Again!");
                 player = player - 1;
@@ -127,7 +132,7 @@ int main() {
         }    
         else if (choice[0] == '7') {
             if (line3[1] == '-') {
-                line3[1] = cursors[player - 1];
+                line3[1] = cursors[player];
             } else {
                 printf("\nPick Again!");
                 player = player - 1;
@@ -135,7 +140,7 @@ int main() {
         } 
         else if (choice[0] == '8') {
             if (line3[4] == '-') {
-                line3[4] = cursors[player - 1];
+                line3[4] = cursors[player];
             } else {
                 printf("\nPick Again!");
                 player = player - 1;
@@ -143,7 +148,7 @@ int main() {
         }
         else if (choice[0] == '9') {
             if (line3[7] == '-') {
-                line3[7] = cursors[player - 1];
+                line3[7] = cursors[player];
             }  else {
                 printf("\nPick Again!");
                 player = player - 1;
