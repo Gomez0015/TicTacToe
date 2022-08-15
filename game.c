@@ -45,6 +45,7 @@ void showGame(char userOne[], char userTwo[], char lineOne[], char lineTwo[], ch
     centerPrint(input, format);
 
     format = 0;
+
     centerPrint(lineOne, format);
     centerPrint(lineTwo, format);
     centerPrint(lineThree, format);
@@ -52,13 +53,13 @@ void showGame(char userOne[], char userTwo[], char lineOne[], char lineTwo[], ch
 
 int main() {
     // Variables
-    char line1[] = "[-][-][-]";
-    char line2[] = "[-][-][-]";
-    char line3[] = "[-][-][-]";
+    char lineOne[] = "[-][-][-]";
+    char lineTwo[] = "[-][-][-]";
+    char lineThree[] = "[-][-][-]";
     char user1[8];
     char user2[8];
     char cursors[] = "eXO";
-    char choice[1];
+    int choice;
     int player = 1;
     
     printf("Welcome to TicTacToe! \n\n");
@@ -70,105 +71,50 @@ int main() {
     scanf("%s", user2);
 
     while (1 == 1) {
-        showGame(user1, user2, line1, line2, line3);
+        showGame(user1, user2, lineOne, lineTwo, lineThree);
 
         printf("\nUser#%d Pick: ", player);
-        scanf("%s", choice);
+        scanf("%d", &choice);
 
-        // switch (choice[0]) {
-        //     default:
-        //         break;
-        // }
+        printf("\n%i\n", choice * 3 - 1);
 
-        if (choice[0] == '1' ) {
-            if (line1[1] == '-') {
-                line1[1] = cursors[player];
+        if(choice > 6) {
+            if(lineThree[choice * 3 - 20] == '-') {
+                lineThree[choice * 3 - 20] = cursors[player];
             } else {
                 printf("\nPick Again!");
                 player = player - 1;
             }
-            
-        } 
-        else if (choice[0] == '2') {
-            if (line1[4] == '-') {
-                line1[4] = cursors[player];
+        } else if(choice > 3) {
+            if(lineTwo[choice * 3 - 11] == '-') {
+                lineTwo[choice * 3 - 11] = cursors[player];
             } else {
                 printf("\nPick Again!");
                 player = player - 1;
             }
-            
-        }
-        else if (choice[0] == '3') {
-            if (line1[7] == '-') {
-                line1[7] = cursors[player];
+        } else if(choice > 0) {
+            if(lineOne[choice * 3 - 2] == '-') {
+                lineOne[choice * 3 - 2] = cursors[player];
             } else {
-                printf("\nPick Again!");
-                player = player - 1;
-            }
-        }    
-        else if (choice[0] == '4') {
-            if (line2[1] == '-') {
-                line2[1] = cursors[player];
-            } else {
-                printf("\nPick Again!");
-                player = player - 1;
-            }
-        }   
-        else if (choice[0] == '5') {
-            if (line2[4] == '-') {
-                line2[4] = cursors[player];
-            } else {
-                printf("\nPick Again!");
-                player = player - 1;
-            }
-        }     
-        else if (choice[0] == '6') {
-            if (line2[7] == '-') {
-                line2[7] = cursors[player];
-            } else {
-                printf("\nPick Again!");
-                player = player - 1;
-            }
-        }    
-        else if (choice[0] == '7') {
-            if (line3[1] == '-') {
-                line3[1] = cursors[player];
-            } else {
-                printf("\nPick Again!");
-                player = player - 1;
-            }
-        } 
-        else if (choice[0] == '8') {
-            if (line3[4] == '-') {
-                line3[4] = cursors[player];
-            } else {
-                printf("\nPick Again!");
-                player = player - 1;
-            }
-        }
-        else if (choice[0] == '9') {
-            if (line3[7] == '-') {
-                line3[7] = cursors[player];
-            }  else {
-                printf("\nPick Again!");
+                printf("\nPick Again! %c", lineOne[choice * 3 - 1]);
                 player = player - 1;
             }
         }
 
-        if (line1[1] != '-' && line1[1] == line1[4] && line1[4] == line1[7] || line2[1] != '-' && line2[1] == line2[4] && line2[4] == line2[7] || line3[1] != '-' && line3[1] == line3[4] && line3[4] == line3[7]) {
-            showGame(user1, user2, line1, line2, line3);
+        if (lineOne[1] != '-' && lineOne[1] == lineOne[4] && lineOne[4] == lineOne[7] || lineTwo[1] != '-' && lineTwo[1] == lineTwo[4] && lineTwo[4] == lineTwo[7] || lineThree[1] != '-' && lineThree[1] == lineThree[4] && lineThree[4] == lineThree[7]) {
+            showGame(user1, user2, lineOne, lineTwo, lineThree);
             printf("\nUser#%d WON!!\n", player);
             break;
-        } else if(line1[1] != '-' && line1[1] == line2[1] && line2[1] == line3[1] || line1[4] != '-' && line1[4] == line2[4] && line2[4] == line3[4] || line1[7] != '-' && line1[7] == line2[7] && line2[7] == line3[7]) {
-            showGame(user1, user2, line1, line2, line3);
+        } else if(lineOne[1] != '-' && lineOne[1] == lineTwo[1] && lineTwo[1] == lineThree[1] || lineOne[4] != '-' && lineOne[4] == lineTwo[4] && lineTwo[4] == lineThree[4] || lineOne[7] != '-' && lineOne[7] == lineTwo[7] && lineTwo[7] == lineThree[7]) {
+            showGame(user1, user2, lineOne, lineTwo, lineThree);
             printf("\nUser#%d WON!!\n", player);
             break;
-        }  else if(line1[1] != '-' && line1[1] == line2[4] && line2[4] == line3[7] || line1[7] != '-' && line1[7] == line2[4] && line2[4] == line3[1]) {
-            showGame(user1, user2, line1, line2, line3);
+        }  else if(lineOne[1] != '-' && lineOne[1] == lineTwo[4] && lineTwo[4] == lineThree[7] || lineOne[7] != '-' && lineOne[7] == lineTwo[4] && lineTwo[4] == lineThree[1]) {
+            showGame(user1, user2, lineOne, lineTwo, lineThree);
             printf("\nUser#%d WON!!\n", player);
             break;
-        } else if(line1[1] != '-' && line1[4] != '-' && line1[7] != '-' && line2[1] != '-' && line2[4] != '-' && line2[7] != '-' && line3[1] != '-' && line3[4] != '-' && line3[7] != '-') {
-            showGame(user1, user2, line1, line2, line3);
+        } else if(lineOne[1] != '-' && lineOne[4] != '-' && lineOne[7] != '-' && lineTwo[1] != '-' && lineTwo[4] != '-' && lineTwo[7] != '-' && lineThree[1] != '-' && lineThree[4] != '-' && lineThree[7] != '-') {
+            showGame(user1, user2, lineOne, lineTwo, lineThree);
             printf("\nTie Game!!\n");
             break;
         }
