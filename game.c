@@ -1,6 +1,13 @@
+/* Importing the standard input and output library and the string library. */
 #include <stdio.h>
 #include <string.h>
 
+/**
+ * It prints a string centered in a 22 character wide field
+ * 
+ * @param str The string to be printed
+ * @param fmt 1 = print dashes, 0 = print spaces
+ */
 void centerPrint(char str[], int fmt)
 {
     int length;
@@ -33,10 +40,21 @@ void centerPrint(char str[], int fmt)
     printf ("\n");
 }
 
+
+/**
+ * This function prints the game board to the screen
+ * 
+ * @param userOne The name of the first player
+ * @param userTwo The name of the second player
+ * @param lineOne The first line of the game board
+ * @param lineTwo The second line of the game board
+ * @param lineThree The third line of the game board.
+ */
 void showGame(char userOne[], char userTwo[], char lineOne[], char lineTwo[], char lineThree[]) {
     char input[20] = "";
     int format = 1;
 
+    /* Concatenating the strings together. */
     strcat(input, userOne); 
     strcat(input, " v ");
     strcat(input, userTwo);
@@ -46,13 +64,15 @@ void showGame(char userOne[], char userTwo[], char lineOne[], char lineTwo[], ch
 
     format = 0;
 
+    /* Printing the game board to the screen. */
     centerPrint(lineOne, format);
     centerPrint(lineTwo, format);
     centerPrint(lineThree, format);
 }
 
 int main() {
-    // Variables
+
+    /* Declaring the variables that will be used in the program. */
     char lineOne[10] = "[-][-][-]";
     char lineTwo[10] = "[-][-][-]";
     char lineThree[10] = "[-][-][-]";
@@ -62,6 +82,8 @@ int main() {
     int choice;
     int player = 0;
     
+    /* This is the beginning of the program. It is asking the user for their name and then storing it
+    in the variable user1 and user2. */
     printf("Welcome to TicTacToe! \n\n");
 
     printf("User#1 Name: ");
@@ -70,7 +92,11 @@ int main() {
     printf("\nUser#2 Name: ");
     scanf("%s", &user2);
 
+    /* This is the main game loop. It is asking the user for their choice and then checking if the choice
+    is valid. If it is valid, it will place the cursor in the correct spot. If it is not valid, it will
+    ask the user to pick again. */
     while (1 == 1) {
+        /* Printing the game board to the screen. */
         showGame(user1, user2, lineOne, lineTwo, lineThree);
 
         printf("\nUser#%d Pick: ", player + 1);
@@ -99,6 +125,7 @@ int main() {
             }
         }
 
+        /* This is checking if the game has been won or tied. */
         if (lineOne[1] != '-' && lineOne[1] == lineOne[4] && lineOne[4] == lineOne[7] || lineTwo[1] != '-' && lineTwo[1] == lineTwo[4] && lineTwo[4] == lineTwo[7] || lineThree[1] != '-' && lineThree[1] == lineThree[4] && lineThree[4] == lineThree[7]) {
             showGame(user1, user2, lineOne, lineTwo, lineThree);
             printf("\nUser#%d WON!!\n", player + 1);
@@ -117,6 +144,7 @@ int main() {
             break;
         }
 
+        /* Switching the player. */
         if(player == 0) {
             player = 1;
         } else {
