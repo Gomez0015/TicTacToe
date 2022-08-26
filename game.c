@@ -41,16 +41,16 @@ void centerPrint(char str[], int fmt)
 }
 
 
+
 /**
- * This function prints the game board to the screen
+ * This function takes in the names of the two players, the game board, and prints the game board to
+ * the screen
  * 
- * @param userOne The name of the first player
- * @param userTwo The name of the second player
- * @param lineOne The first line of the game board
- * @param lineTwo The second line of the game board
- * @param lineThree The third line of the game board.
+ * @param userOne The name of the first player.
+ * @param userTwo The name of the second player.
+ * @param game The game board.
  */
-void showGame(char userOne[], char userTwo[], char lineOne[], char lineTwo[], char lineThree[]) {
+void showGame(char userOne[], char userTwo[], char game[]) {
     char input[20] = "";
     int format = 1;
 
@@ -64,6 +64,24 @@ void showGame(char userOne[], char userTwo[], char lineOne[], char lineTwo[], ch
 
     format = 0;
 
+    /* Taking the game board and putting it into a format that can be printed to the screen. */
+    char lineOne[10] = "[-][-][-]";
+    char lineTwo[10] = "[-][-][-]";
+    char lineThree[10] = "[-][-][-]";
+
+    int i;
+    for(i = 0; i < 28; i++) {
+        if(game[i] == 'X' || game[i] == 'O') {
+            if(i < 9 ) {
+                lineOne[i] = game[i];
+            } else if (i < 18) {
+                lineTwo[i - 9] = game[i];
+            } else {
+                lineThree[i - 18] = game[i];
+            }
+        }
+    }
+
     /* Printing the game board to the screen. */
     centerPrint(lineOne, format);
     centerPrint(lineTwo, format);
@@ -73,9 +91,7 @@ void showGame(char userOne[], char userTwo[], char lineOne[], char lineTwo[], ch
 int main() {
 
     /* Declaring the variables that will be used in the program. */
-    char lineOne[10] = "[-][-][-]";
-    char lineTwo[10] = "[-][-][-]";
-    char lineThree[10] = "[-][-][-]";
+    char game[28] = "[-][-][-][-][-][-][-][-][-]";
     char user1[10];
     char user2[10];
     char cursors[3] = "XO";
@@ -97,49 +113,32 @@ int main() {
     ask the user to pick again. */
     while (1 == 1) {
         /* Printing the game board to the screen. */
-        showGame(user1, user2, lineOne, lineTwo, lineThree);
+        showGame(user1, user2, game);
 
         printf("\nUser#%d Pick: ", player + 1);
         scanf("%d", &choice);
 
-        if(choice > 6) {
-            if(lineThree[choice * 3 - 20] == '-') {
-                lineThree[choice * 3 - 20] = cursors[player];
-            } else {
-                printf("\nPick Again!");
-                player = player - 1;
-            }
-        } else if(choice > 3) {
-            if(lineTwo[choice * 3 - 11] == '-') {
-                lineTwo[choice * 3 - 11] = cursors[player];
-            } else {
-                printf("\nPick Again!");
-                player = player - 1;
-            }
-        } else if(choice > 0) {
-            if(lineOne[choice * 3 - 2] == '-') {
-                lineOne[choice * 3 - 2] = cursors[player];
-            } else {
-                printf("\nPick Again! %c", lineOne[choice * 3 - 1]);
-                player = player - 1;
-            }
+        if(game[choice * 3 - 2] == '-') {
+            game[choice * 3 - 2] = cursors[player];
+        }else {
+            printf("\nPick Again!");
+            player = player - 1;
         }
 
-        /* This is checking if the game has been won or tied. */
-        if (lineOne[1] != '-' && lineOne[1] == lineOne[4] && lineOne[4] == lineOne[7] || lineTwo[1] != '-' && lineTwo[1] == lineTwo[4] && lineTwo[4] == lineTwo[7] || lineThree[1] != '-' && lineThree[1] == lineThree[4] && lineThree[4] == lineThree[7]) {
-            showGame(user1, user2, lineOne, lineTwo, lineThree);
+        if (game[1] != '-' && game[1] == game[4] && game[4] == game[7] || game[10] != '-' && game[10] == game[13] && game[13] == game[16] || game[19] != '-' && game[19] == game[22] && game[22] == game[25]) {
+            showGame(user1, user2, game);
             printf("\nUser#%d WON!!\n", player + 1);
             break;
-        } else if(lineOne[1] != '-' && lineOne[1] == lineTwo[1] && lineTwo[1] == lineThree[1] || lineOne[4] != '-' && lineOne[4] == lineTwo[4] && lineTwo[4] == lineThree[4] || lineOne[7] != '-' && lineOne[7] == lineTwo[7] && lineTwo[7] == lineThree[7]) {
-            showGame(user1, user2, lineOne, lineTwo, lineThree);
+        } else if(game[1] != '-' && game[1] == game[10] && game[10] == game[19] || game[4] != '-' && game[4] == game[13] && game[13] == game[22] || game[7] != '-' && game[7] == game[16] && game[16] == game[25]) {
+            showGame(user1, user2, game);
             printf("\nUser#%d WON!!\n", player + 1);
             break;
-        }  else if(lineOne[1] != '-' && lineOne[1] == lineTwo[4] && lineTwo[4] == lineThree[7] || lineOne[7] != '-' && lineOne[7] == lineTwo[4] && lineTwo[4] == lineThree[1]) {
-            showGame(user1, user2, lineOne, lineTwo, lineThree);
+        }  else if(game[1] != '-' && game[1] == game[13] && game[13] == game[25] || game[7] != '-' && game[7] == game[13] && game[13] == game[19]) {
+            showGame(user1, user2, game);
             printf("\nUser#%d WON!!\n", player + 1);
             break;
-        } else if(lineOne[1] != '-' && lineOne[4] != '-' && lineOne[7] != '-' && lineTwo[1] != '-' && lineTwo[4] != '-' && lineTwo[7] != '-' && lineThree[1] != '-' && lineThree[4] != '-' && lineThree[7] != '-') {
-            showGame(user1, user2, lineOne, lineTwo, lineThree);
+        } else if(game[1] != '-' && game[4] != '-' && game[7] != '-' && game[10] != '-' && game[13] != '-' && game[16] != '-' && game[19] != '-' && game[22] != '-' && game[25] != '-') {
+            showGame(user1, user2, game);
             printf("\nTie Game!!\n");
             break;
         }
