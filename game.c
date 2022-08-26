@@ -70,7 +70,7 @@ void showGame(char userOne[], char userTwo[], char game[]) {
     char lineThree[10] = "[-][-][-]";
 
     int i;
-    for(i = 0; i < 28; i++) {
+    for(i = 1; i < 28; i = i+3) {
         if(game[i] == 'X' || game[i] == 'O') {
             if(i < 9 ) {
                 lineOne[i] = game[i];
